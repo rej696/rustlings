@@ -2,27 +2,32 @@
 // Make me compile without changing line 13 or moving line 10!
 // Execute `rustlings hint move_semantics2` for hints :)
 
-// I AM NOT DONE
-
 fn main() {
-    let vec0 = Vec::new();
+    let mut vec = Vec::new();
 
-    let mut vec1 = fill_vec(vec0);
+    // Borrow a mutable reference to vec
+    fill_vec_borrow(&mut vec);
 
     // Do not change the following line!
-    println!("{} has length {} content `{:?}`", "vec0", vec0.len(), vec0);
+    println!("{} has length {} content `{:?}`", "vec", vec.len(), vec);
+   
+    // take ownership of vec, and return it into the shadowed variable
+    let mut vec = fill_vec_ret(vec);
 
-    vec1.push(88);
+    vec.push(88);
 
-    println!("{} has length {} content `{:?}`", "vec1", vec1.len(), vec1);
+    println!("{} has length {} content `{:?}`", "vec", vec.len(), vec);
 }
 
-fn fill_vec(vec: Vec<i32>) -> Vec<i32> {
-    let mut vec = vec;
-
+fn fill_vec_ret(mut vec: Vec<i32>) -> Vec<i32> {
     vec.push(22);
     vec.push(44);
     vec.push(66);
-
     vec
+}
+
+fn fill_vec_borrow(vec: &mut Vec<i32>) {
+    vec.push(22);
+    vec.push(44);
+    vec.push(66);
 }
